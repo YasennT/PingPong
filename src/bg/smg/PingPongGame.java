@@ -11,12 +11,12 @@ public class PingPongGame extends JFrame {
 
     private final int WIDTH = 600;
     private final int HEIGHT = 400;
-    private final int hilka_WIDTH = 20;
-    private final int hilka_HEIGHT = 80;
+    private final int HILKA_WIDTH = 20;
+    private final int HILKA_HEIGHT = 80;
     private final int BALL_SIZE = 20;
 
-    private int hilka1Y = HEIGHT / 2 - hilka_HEIGHT / 2;
-    private int hilka2Y = HEIGHT / 2 - hilka_HEIGHT / 2;
+    private int hilka1Y = HEIGHT / 2 - HILKA_HEIGHT / 2;
+    private int hilka2Y = HEIGHT / 2 - HILKA_HEIGHT / 2;
     private int ballX = WIDTH / 2 - BALL_SIZE / 2;
     private int ballY = HEIGHT / 2 - BALL_SIZE / 2;
     private int ballSpeedX = 5;
@@ -61,13 +61,13 @@ public class PingPongGame extends JFrame {
 
         if (keyCode == KeyEvent.VK_UP && hilka2Y > 0) {
             hilka2Y -= 20;
-        } else if (keyCode == KeyEvent.VK_DOWN && hilka2Y < HEIGHT - hilka_HEIGHT) {
+        } else if (keyCode == KeyEvent.VK_DOWN && hilka2Y < HEIGHT - HILKA_HEIGHT) {
             hilka2Y += 20;
         }
 
         if (keyCode == KeyEvent.VK_W && hilka1Y > 0) {
             hilka1Y -= 20;
-        } else if (keyCode == KeyEvent.VK_S && hilka1Y < HEIGHT - hilka_HEIGHT) {
+        } else if (keyCode == KeyEvent.VK_S && hilka1Y < HEIGHT - HILKA_HEIGHT) {
             hilka1Y += 20;
         }
     }
@@ -82,11 +82,11 @@ public class PingPongGame extends JFrame {
         }
 
         // Ball and hilkas collisions
-        if (ballX <= hilka_WIDTH && ballY + BALL_SIZE >= hilka1Y && ballY <= hilka1Y + hilka_HEIGHT) {
+        if (ballX <= HILKA_WIDTH && ballY + BALL_SIZE >= hilka1Y && ballY <= hilka1Y + HILKA_HEIGHT) {
             ballSpeedX = -ballSpeedX;
         }
 
-        if (ballX + BALL_SIZE >= WIDTH - hilka_WIDTH && ballY + BALL_SIZE >= hilka2Y && ballY <= hilka2Y + hilka_HEIGHT) {
+        if (ballX + BALL_SIZE >= WIDTH - HILKA_WIDTH && ballY + BALL_SIZE >= hilka2Y && ballY <= hilka2Y + HILKA_HEIGHT) {
             ballSpeedX = -ballSpeedX;
         }
 
@@ -105,8 +105,8 @@ public class PingPongGame extends JFrame {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setColor(Color.WHITE);
-        g.fillRect(hilka_WIDTH, hilka1Y, hilka_WIDTH, hilka_HEIGHT);
-        g.fillRect(WIDTH - 2 * hilka_WIDTH, hilka2Y, hilka_WIDTH, hilka_HEIGHT);
+        g.fillRect(HILKA_WIDTH, hilka1Y, HILKA_WIDTH, HILKA_HEIGHT);
+        g.fillRect(WIDTH - 2 * HILKA_WIDTH, hilka2Y, HILKA_WIDTH, HILKA_HEIGHT);
 
         g.fillOval(ballX, ballY, BALL_SIZE, BALL_SIZE);
     }
