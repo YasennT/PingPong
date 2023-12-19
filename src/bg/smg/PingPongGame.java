@@ -81,7 +81,7 @@ public class PingPongGame extends JFrame {
             ballSpeedY = -ballSpeedY;
         }
 
-        // Ball and hilkas collisions
+        // Ball and hilka collisions
         if (ballX <= HILKA_WIDTH && ballY + BALL_SIZE >= hilka1Y && ballY <= hilka1Y + HILKA_HEIGHT) {
             ballSpeedX = -ballSpeedX;
         }
@@ -91,6 +91,7 @@ public class PingPongGame extends JFrame {
         }
 
         // Ball out of bounds
+        // TOCHKI TUK???
         if (ballX <= 0 || ballX + BALL_SIZE >= WIDTH) {
             ballX = WIDTH / 2 - BALL_SIZE / 2;
             ballY = HEIGHT / 2 - BALL_SIZE / 2;
