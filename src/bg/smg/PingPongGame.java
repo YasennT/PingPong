@@ -9,25 +9,18 @@ import java.awt.event.KeyListener;
 
 public class PingPongGame extends JFrame {
 
-    private final int WIDTH = 600;
-    private final int HEIGHT = 400;
-    private final int HILKA_WIDTH = 20;
-    private final int HILKA_HEIGHT = 80;
-    private final int BALL_SIZE = 20;
+    private final int WIDTH = 900, HEIGHT = 600;
+    private final int HILKA_WIDTH = 25, HILKA_HEIGHT = 120, BALL_SIZE = 30;
 
-    private int hilka1Y = HEIGHT / 2 - HILKA_HEIGHT / 2;
-    private int hilka2Y = HEIGHT / 2 - HILKA_HEIGHT / 2;
-    private int ballX = WIDTH / 2 - BALL_SIZE / 2;
-    private int ballY = HEIGHT / 2 - BALL_SIZE / 2;
-    private int ballSpeedX = 5;
-    private int ballSpeedY = 2;
+    private int hilka1Y = HEIGHT/2 - HILKA_HEIGHT/2, hilka2Y = HEIGHT/2 - HILKA_HEIGHT/2;
+    private double ballX = WIDTH/2.0, ballY = HEIGHT/2.0;
+    private double ballSpeedX = 6.25, ballSpeedY = 2.5;
 
+    // ПОЛЕ
     public PingPongGame() {
         setTitle("Ping Pong Game");
         setSize(WIDTH, HEIGHT);
-        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -52,23 +45,23 @@ public class PingPongGame extends JFrame {
         });
         timer.start();
 
-        setFocusable(true);
         setVisible(true);
     }
 
+    // МЕСТЕНЕ НА ХИЛКИТЕ
     private void handleKeyPress(KeyEvent e) {
-        int keyCode = e.getKeyCode();
+        int buton = e.getKeyCode();
 
-        if (keyCode == KeyEvent.VK_UP && hilka2Y > 0) {
-            hilka2Y -= 20;
-        } else if (keyCode == KeyEvent.VK_DOWN && hilka2Y < HEIGHT - HILKA_HEIGHT) {
-            hilka2Y += 20;
+        if (buton == KeyEvent.VK_UP && hilka2Y>0) {
+            hilka2Y -= 25;
+        } else if (buton == KeyEvent.VK_DOWN && hilka2Y < HEIGHT - HILKA_HEIGHT) {
+            hilka2Y += 25;
         }
 
-        if (keyCode == KeyEvent.VK_W && hilka1Y > 0) {
-            hilka1Y -= 20;
-        } else if (keyCode == KeyEvent.VK_S && hilka1Y < HEIGHT - HILKA_HEIGHT) {
-            hilka1Y += 20;
+        if (buton == KeyEvent.VK_W && hilka1Y>0) {
+            hilka1Y -= 25;
+        } else if (buton == KeyEvent.VK_S && hilka1Y < HEIGHT - HILKA_HEIGHT) {
+            hilka1Y += 25;
         }
     }
 
@@ -76,12 +69,12 @@ public class PingPongGame extends JFrame {
         ballX += ballSpeedX;
         ballY += ballSpeedY;
 
-        // Ball and wall collisions
-        if (ballY <= 0 || ballY >= HEIGHT - BALL_SIZE) {
+        // ТОПЧЕ В СТЕНА
+        if (ballY<=0 || ballY >= HEIGHT - BALL_SIZE) {
             ballSpeedY = -ballSpeedY;
         }
 
-        // Ball and hilka collisions
+        // ТОПЧЕ В ХИЛКА
         if (ballX <= HILKA_WIDTH && ballY + BALL_SIZE >= hilka1Y && ballY <= hilka1Y + HILKA_HEIGHT) {
             ballSpeedX = -ballSpeedX;
         }
@@ -90,13 +83,15 @@ public class PingPongGame extends JFrame {
             ballSpeedX = -ballSpeedX;
         }
 
-        // Ball out of bounds
-        // TOCHKI TUK???
+        // АКО ИЗЛЕЗЕ
+        // БРОЯЧ НА ТОЧКИ ТУК??
         if (ballX <= 0 || ballX + BALL_SIZE >= WIDTH) {
-            ballX = WIDTH / 2 - BALL_SIZE / 2;
-            ballY = HEIGHT / 2 - BALL_SIZE / 2;
+
+            ballX = WIDTH/2.0 - BALL_SIZE/2.0;
+            ballY = HEIGHT/2.0 - BALL_SIZE/2.0;
         }
     }
+
 
     @Override
     public void paint(Graphics g) {
@@ -105,10 +100,13 @@ public class PingPongGame extends JFrame {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
+        // ХИЛКИ
         g.setColor(Color.WHITE);
         g.fillRect(HILKA_WIDTH, hilka1Y, HILKA_WIDTH, HILKA_HEIGHT);
-        g.fillRect(WIDTH - 2 * HILKA_WIDTH, hilka2Y, HILKA_WIDTH, HILKA_HEIGHT);
+        g.fillRect(WIDTH - 2*HILKA_WIDTH, hilka2Y, HILKA_WIDTH, HILKA_HEIGHT);
 
-        g.fillOval(ballX, ballY, BALL_SIZE, BALL_SIZE);
+        // ТОПЧЕ
+        g.fillOval((int) ballX, (int) ballY, BALL_SIZE, BALL_SIZE);
     }
+
 }
