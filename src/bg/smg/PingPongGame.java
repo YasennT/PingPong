@@ -102,7 +102,6 @@ public class PingPongGame extends JFrame {
         }
 
         // АКО ИЗЛЕЗЕ
-        // БРОЯЧ НА ТОЧКИ ТУК??
         if (ballX <= 0 || ballX + BALL_SIZE >= WIDTH) {
             if (ballX <= 0) {
                 tochki2++;
