@@ -2,8 +2,6 @@ package bg.smg;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -14,13 +12,36 @@ public class PingPongGame extends JFrame {
 
     private int hilka1Y = HEIGHT/2 - HILKA_HEIGHT/2, hilka2Y = HEIGHT/2 - HILKA_HEIGHT/2;
     private double ballX = WIDTH/2.0, ballY = HEIGHT/2.0;
-    private double ballSpeedX = 6.25, ballSpeedY = 2.5;
+    private double ballSpeedX = 10, ballSpeedY = 4;
+
+    private int tochki1 = 0,tochki2 = 0;
+    private JLabel tochkiP1,tochkiP2;
+
+    private String NameP1, NameP2;
+    private String difficulty;
 
     // ПОЛЕ
     public PingPongGame() {
+        getPlayerNames();
+
         setTitle("Ping Pong Game");
-        setSize(WIDTH, HEIGHT);
+        setSize(WIDTH, HEIGHT+200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        switch (difficulty) {
+            case "Easy" -> {
+                ballSpeedX = 6.25;
+                ballSpeedY = 2.25;
+            }
+            case "Normal" -> {
+                ballSpeedX = 7.5;
+                ballSpeedY = 3;
+            }
+            case "Hard" -> {
+                ballSpeedX = 10;
+                ballSpeedY = 4;
+            }
+        }
+        ResultsPanel();
         addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -36,12 +57,9 @@ public class PingPongGame extends JFrame {
             }
         });
 
-        Timer timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateGame();
-                repaint();
-            }
+        Timer timer = new Timer(10, e -> {
+            updateGame();
+            repaint();
         });
         timer.start();
 
@@ -66,6 +84,8 @@ public class PingPongGame extends JFrame {
     }
 
     private void updateGame() {
+
+
         ballX += ballSpeedX;
         ballY += ballSpeedY;
 
@@ -86,13 +106,57 @@ public class PingPongGame extends JFrame {
         // АКО ИЗЛЕЗЕ
         // БРОЯЧ НА ТОЧКИ ТУК??
         if (ballX <= 0 || ballX + BALL_SIZE >= WIDTH) {
+            if (ballX <= 0) {
+                tochki2++;
+            } else tochki1++;
+            points();
+
 
             ballX = WIDTH/2.0 - BALL_SIZE/2.0;
             ballY = HEIGHT/2.0 - BALL_SIZE/2.0;
         }
     }
 
+    private void points() {
+        tochkiP1.setText(NameP1 + ": " + tochki1);
+        tochkiP2.setText(NameP2 + ": " + tochki2);
+    }
 
+    private void ResultsPanel() {
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        tochkiP1 = new JLabel("Player 1: 0");
+        tochkiP2 = new JLabel("Player 2: 0");
+
+        scorePanel.add(tochkiP1);
+        scorePanel.add(tochkiP2);
+
+        add(scorePanel, BorderLayout.SOUTH);
+    }
+
+    private void getPlayerNames() {
+        JTextField p1Field = new JTextField();
+        JTextField p2Field = new JTextField();
+
+        JComboBox<String> trudnostBox = new JComboBox<>(new String[]{"Easy", "Normal", "Hard"});
+
+        JPanel NamePanel = new JPanel(new GridLayout(3, 2));
+        NamePanel.add(new JLabel("Player 1 Name:"));
+        NamePanel.add(p1Field);
+        NamePanel.add(new JLabel("Player 2 Name:"));
+        NamePanel.add(p2Field);
+        NamePanel.add(new JLabel("Difficulty:"));
+        NamePanel.add(trudnostBox);
+
+
+        int result = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            NameP1 = p1Field.getText();
+            NameP2 = p2Field.getText();
+            difficulty = (String) trudnostBox.getSelectedItem();
+        }
+    }
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -103,6 +167,7 @@ public class PingPongGame extends JFrame {
         // ХИЛКИ
         g.setColor(Color.WHITE);
         g.fillRect(HILKA_WIDTH, hilka1Y, HILKA_WIDTH, HILKA_HEIGHT);
+
         g.fillRect(WIDTH - 2*HILKA_WIDTH, hilka2Y, HILKA_WIDTH, HILKA_HEIGHT);
 
         // ТОПЧЕ
