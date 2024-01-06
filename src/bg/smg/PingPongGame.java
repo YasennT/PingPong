@@ -15,7 +15,8 @@ public class PingPongGame extends JFrame {
     private double ballSpeedX = 10, ballSpeedY = 4;
 
     private int tochki1 = 0,tochki2 = 0;
-    private JLabel tochkiP1,tochkiP2;
+    private final JLabel tochkiP1 = new JLabel("Player 1: 0");
+    private final JLabel tochkiP2 = new JLabel("Player 2: 0");
 
     private String NameP1, NameP2;
     private String difficulty;
@@ -47,11 +48,9 @@ public class PingPongGame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 handleKeyPress(e);
             }
-
             @Override
             public void keyTyped(KeyEvent e) {
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
             }
@@ -85,7 +84,6 @@ public class PingPongGame extends JFrame {
 
     private void updateGame() {
 
-
         ballX += ballSpeedX;
         ballY += ballSpeedY;
 
@@ -111,7 +109,6 @@ public class PingPongGame extends JFrame {
             } else tochki1++;
             points();
 
-
             ballX = WIDTH/2.0 - BALL_SIZE/2.0;
             ballY = HEIGHT/2.0 - BALL_SIZE/2.0;
         }
@@ -125,9 +122,6 @@ public class PingPongGame extends JFrame {
     private void ResultsPanel() {
         JPanel scorePanel = new JPanel();
         scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        tochkiP1 = new JLabel("Player 1: 0");
-        tochkiP2 = new JLabel("Player 2: 0");
 
         scorePanel.add(tochkiP1);
         scorePanel.add(tochkiP2);
@@ -149,14 +143,14 @@ public class PingPongGame extends JFrame {
         NamePanel.add(new JLabel("Difficulty:"));
         NamePanel.add(trudnostBox);
 
-
         int result = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
+        if (JOptionPane.OK_OPTION == result) {
             NameP1 = p1Field.getText();
             NameP2 = p2Field.getText();
             difficulty = (String) trudnostBox.getSelectedItem();
         }
     }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
