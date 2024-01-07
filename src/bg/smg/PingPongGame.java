@@ -118,6 +118,7 @@ public class PingPongGame extends JFrame {
         tochkiP2.setText(NameP2 + ": " + tochki2);
     }
 
+    // РЕЗУЛТАТИ
     private void ResultsPanel() {
         JPanel scorePanel = new JPanel();
         scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -128,6 +129,7 @@ public class PingPongGame extends JFrame {
         add(scorePanel, BorderLayout.SOUTH);
     }
 
+    // ПРОЗОРЕЦ С ИМЕНА И ТРУДНОСТ
     private void getPlayerNames() {
         JTextField p1Field = new JTextField();
         JTextField p2Field = new JTextField();
