@@ -26,7 +26,7 @@ public class PingPongGame extends JFrame {
         getPlayerNames();
 
         setTitle("Ping Pong Game");
-        setSize(WIDTH, HEIGHT+200);
+        setSize(WIDTH, HEIGHT+100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ikona();
         switch (difficulty) {
@@ -152,8 +152,8 @@ public class PingPongGame extends JFrame {
         NamePanel.add(new JLabel("Difficulty:"));
         NamePanel.add(trudnostBox);
 
-        int result = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
-        if (JOptionPane.OK_OPTION == result) {
+        int choice = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
+        if (JOptionPane.OK_OPTION == choice) {
             NameP1 = p1Field.getText();
             NameP2 = p2Field.getText();
             difficulty = (String) trudnostBox.getSelectedItem();
