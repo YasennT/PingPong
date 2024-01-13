@@ -28,6 +28,7 @@ public class PingPongGame extends JFrame {
         setTitle("Ping Pong Game");
         setSize(WIDTH, HEIGHT+200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ikonka();
         switch (difficulty) {
             case "Easy" -> {
                 ballSpeedX = 6.25;
@@ -63,6 +64,13 @@ public class PingPongGame extends JFrame {
         timer.start();
 
         setVisible(true);
+    }
+
+    // ИКОНАТА НА ПРОЗОРЕЦА
+    private void ikonka()
+    {
+        ImageIcon img = new ImageIcon("resources/Ikonka.png");
+        this.setIconImage(img.getImage());
     }
 
     // МЕСТЕНЕ НА ХИЛКИТЕ
