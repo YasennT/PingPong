@@ -133,6 +133,8 @@ public class PingPongGame extends JFrame {
 
         scorePanel.add(tochkiP1);
         scorePanel.add(tochkiP2);
+        tochkiP1.setFont(new Font("Arial", Font.PLAIN, 25));
+        tochkiP2.setFont(new Font("Arial", Font.PLAIN, 25));
 
         add(scorePanel, BorderLayout.SOUTH);
     }
