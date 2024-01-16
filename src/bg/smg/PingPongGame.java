@@ -164,16 +164,22 @@ public class PingPongGame extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(0,139,139));
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
-        // ХИЛКИ
         g.setColor(Color.WHITE);
-        g.fillRect(HILKA_WIDTH, hilka1Y, HILKA_WIDTH, HILKA_HEIGHT);
+        g.drawLine(0, 315, WIDTH, 315);
+        g.drawLine(WIDTH/2, 0, WIDTH/2, HEIGHT);
 
-        g.fillRect(WIDTH - 2*HILKA_WIDTH, hilka2Y, HILKA_WIDTH, HILKA_HEIGHT);
+        // ХИЛКИ
+        g.setColor(new Color(255,0,0));
+        g.fillRect(HILKA_WIDTH, hilka1Y+15, HILKA_WIDTH, HILKA_HEIGHT);
+
+        g.setColor(new Color(0,0,190));
+        g.fillRect(WIDTH - 2*HILKA_WIDTH, hilka2Y+15, HILKA_WIDTH, HILKA_HEIGHT);
 
         // ТОПЧЕ
+        g.setColor(new Color(255,165,0));
         g.fillOval((int) ballX, (int) ballY, BALL_SIZE, BALL_SIZE);
     }
 
