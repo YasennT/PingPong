@@ -140,10 +140,10 @@ public class PingPongGame extends JFrame {
             winner = NameP2;
         }
 
-        Object[] options = {"Yes", "No"};
+        Object[] options = {"Да", "Не"};
         int end = JOptionPane.showOptionDialog(this,
-                winner + " wins the game! Would you like to play more?",
-                "Game Over",
+                winner + " спечели! Искате ли да играете пак?",
+                "Край на играта",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
