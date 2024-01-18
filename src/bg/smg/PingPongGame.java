@@ -163,6 +163,9 @@ public class PingPongGame extends JFrame {
 
         ballX = WIDTH/2.0 - BALL_SIZE/2.0;
         ballY = HEIGHT/2.0 - BALL_SIZE/2.0;
+
+        hilka1Y = HEIGHT/2 - HILKA_HEIGHT/2;
+        hilka2Y = HEIGHT/2 - HILKA_HEIGHT/2;
     }
 
     // РЕЗУЛТАТИ
