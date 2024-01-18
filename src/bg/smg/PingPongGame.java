@@ -15,9 +15,8 @@ public class PingPongGame extends JFrame {
     private double ballSpeedX = 10, ballSpeedY = 4;
 
     private int tochki1 = 0,tochki2 = 0;
-    private final JLabel tochkiP1 = new JLabel("Player 1: 0");
-    private final JLabel tochkiP2 = new JLabel("Player 2: 0");
-
+    private final JLabel tochkiP1 = new JLabel("Player 1: 0", JLabel.CENTER);
+    private final JLabel tochkiP2 = new JLabel("Player 2: 0", JLabel.CENTER);
     private String NameP1, NameP2;
     private String difficulty;
 
@@ -26,7 +25,7 @@ public class PingPongGame extends JFrame {
         getPlayerNames();
 
         setTitle("Ping Pong Game");
-        setSize(WIDTH, HEIGHT+100);
+        setSize(WIDTH, HEIGHT+75);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ikona();
         switch (difficulty) {
@@ -119,6 +118,12 @@ public class PingPongGame extends JFrame {
             ballX = WIDTH/2.0 - BALL_SIZE/2.0;
             ballY = HEIGHT/2.0 - BALL_SIZE/2.0;
         }
+
+        // КРАЙ НА ИГРАТА
+        if(tochki1 == 10 || tochki2 == 10) {
+            endGame();
+        }
+
     }
 
     private void points() {
@@ -126,10 +131,44 @@ public class PingPongGame extends JFrame {
         tochkiP2.setText(NameP2 + ": " + tochki2);
     }
 
+    // КРАЙ НА ИГРАТА
+    private void endGame() {
+        String winner;
+        if (tochki1 == 10) {
+            winner = NameP1;
+        } else {
+            winner = NameP2;
+        }
+
+        Object[] options = {"Yes", "No"};
+        int end = JOptionPane.showOptionDialog(this,
+                winner + " wins the game! Would you like to play more?",
+                "Game Over",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (end == JOptionPane.YES_OPTION) {
+            startNewGame();
+        } else System.exit(0);
+    }
+
+    // НОВА ИГРА
+    private void startNewGame() {
+        tochki1 = 0;
+        tochki2 = 0;
+        points();
+
+        ballX = WIDTH/2.0 - BALL_SIZE/2.0;
+        ballY = HEIGHT/2.0 - BALL_SIZE/2.0;
+    }
+
     // РЕЗУЛТАТИ
     private void ResultsPanel() {
         JPanel scorePanel = new JPanel();
-        scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        scorePanel.setLayout(new GridLayout(0,2));
 
         scorePanel.add(tochkiP1);
         scorePanel.add(tochkiP2);
@@ -160,6 +199,8 @@ public class PingPongGame extends JFrame {
             NameP2 = p2Field.getText();
             difficulty = (String) trudnostBox.getSelectedItem();
         }
+        tochkiP1.setText(NameP1 + ": " + tochki1);
+        tochkiP2.setText(NameP2 + ": " + tochki2);
     }
 
     @Override
