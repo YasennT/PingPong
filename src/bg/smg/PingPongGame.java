@@ -183,7 +183,7 @@ public class PingPongGame extends JFrame {
         JTextField p1Field = new JTextField();
         JTextField p2Field = new JTextField();
 
-        JComboBox<String> trudnostBox = new JComboBox<>(new String[]{"Easy", "Normal", "Hard"});
+        JComboBox<String> trudnost = new JComboBox<>(new String[]{"Easy", "Normal", "Hard"});
 
         JPanel NamePanel = new JPanel(new GridLayout(3, 2));
         NamePanel.add(new JLabel("Player 1 Name:"));
@@ -191,13 +191,13 @@ public class PingPongGame extends JFrame {
         NamePanel.add(new JLabel("Player 2 Name:"));
         NamePanel.add(p2Field);
         NamePanel.add(new JLabel("Difficulty:"));
-        NamePanel.add(trudnostBox);
+        NamePanel.add(trudnost);
 
         int choice = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
         if (JOptionPane.OK_OPTION == choice) {
             NameP1 = p1Field.getText();
             NameP2 = p2Field.getText();
-            difficulty = (String) trudnostBox.getSelectedItem();
+            difficulty = (String) trudnost.getSelectedItem();
         }
         tochkiP1.setText(NameP1 + ": " + tochki1);
         tochkiP2.setText(NameP2 + ": " + tochki2);
