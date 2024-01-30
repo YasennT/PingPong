@@ -18,7 +18,7 @@ public class PingPongGame extends JFrame {
     private final JLabel tochkiP1 = new JLabel("Player 1: 0", JLabel.CENTER);
     private final JLabel tochkiP2 = new JLabel("Player 2: 0", JLabel.CENTER);
     private String NameP1, NameP2;
-    private String difficulty;
+    private String difficulty, table;
 
     // ПОЛЕ
     public PingPongGame() {
@@ -42,6 +42,7 @@ public class PingPongGame extends JFrame {
                 ballSpeedY = 4;
             }
         }
+
         ResultsPanel();
         addKeyListener(new KeyListener() {
             @Override
@@ -181,51 +182,78 @@ public class PingPongGame extends JFrame {
         add(scorePanel, BorderLayout.SOUTH);
     }
 
-    // ПРОЗОРЕЦ С ИМЕНА И ТРУДНОСТ
+    // ПРОЗОРЕЦ С ИМЕНА, ТРУДНОСТ И МАСА
     private void getPlayerNames() {
         JTextField p1Field = new JTextField();
         JTextField p2Field = new JTextField();
 
         JComboBox<String> trudnost = new JComboBox<>(new String[]{"Easy", "Normal", "Hard"});
+        JComboBox<String> kort = new JComboBox<>(new String[]{"Cyan", "Clay"});
 
-        JPanel NamePanel = new JPanel(new GridLayout(3, 2));
+        JPanel NamePanel = new JPanel(new GridLayout(4, 2));
         NamePanel.add(new JLabel("Player 1 Name:"));
         NamePanel.add(p1Field);
         NamePanel.add(new JLabel("Player 2 Name:"));
         NamePanel.add(p2Field);
         NamePanel.add(new JLabel("Difficulty:"));
         NamePanel.add(trudnost);
+        NamePanel.add(new JLabel("Table:"));
+        NamePanel.add(kort);
 
-        int choice = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
-        if (JOptionPane.OK_OPTION == choice) {
+        int choiceDiff = JOptionPane.showConfirmDialog(null, NamePanel, "Enter Player Names", JOptionPane.OK_CANCEL_OPTION);
+        if (JOptionPane.OK_OPTION == choiceDiff) {
             NameP1 = p1Field.getText();
             NameP2 = p2Field.getText();
             difficulty = (String) trudnost.getSelectedItem();
+            table = (String) kort.getSelectedItem();
         }
         tochkiP1.setText(NameP1 + ": " + tochki1);
         tochkiP2.setText(NameP2 + ": " + tochki2);
+
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.setColor(new Color(0,139,139));
+        // МАСА
+        Color poleCyan = new Color(0,139,139);
+        Color poleClay = new Color(177,117,30);
+        switch (table) {
+            case "Cyan" -> g.setColor(poleCyan);
+            case "Clay" -> g.setColor(poleClay);
+        }
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
-        g.setColor(Color.WHITE);
+        switch (table) {
+            case "Cyan" -> g.setColor(Color.WHITE);
+            case "Clay" -> g.setColor(Color.LIGHT_GRAY);
+        }
         g.drawLine(0, 315, WIDTH, 315);
         g.drawLine(WIDTH/2, 0, WIDTH/2, HEIGHT);
 
         // ХИЛКИ
-        g.setColor(new Color(255,0,0));
+        Color hilka1= new Color(255,0,0);
+        switch (table) {
+            case "Cyan" -> g.setColor(hilka1);
+            case "Clay" -> g.setColor(Color.BLACK);
+        }
         g.fillRect(HILKA_WIDTH, hilka1Y+15, HILKA_WIDTH, HILKA_HEIGHT);
 
-        g.setColor(new Color(0,0,190));
+        Color hilka2 = new Color(0,0,190);
+        g.setColor(hilka2);
+        switch (table) {
+            case "Cyan" -> g.setColor(hilka2);
+            case "Clay" -> g.setColor(Color.BLACK);
+        }
         g.fillRect(WIDTH - 2*HILKA_WIDTH, hilka2Y+15, HILKA_WIDTH, HILKA_HEIGHT);
 
         // ТОПЧЕ
-        g.setColor(new Color(255,165,0));
+        Color topka = new Color(255,165,0);
+        switch (table) {
+            case "Cyan" -> g.setColor(topka);
+            case "Clay" -> g.setColor(Color.WHITE);
+        }
         g.fillOval((int) ballX, (int) ballY, BALL_SIZE, BALL_SIZE);
     }
 
